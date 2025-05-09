@@ -5,8 +5,8 @@ terraform cloudでのplan/apply用iam role
 locals {
   terraform_cloud = {
     hostname          = "app.terraform.io"
-    organization_name = "${var.project_name}-${var.service_name}"
-    project_name      = "01_prd"
+    organization_name = "vti"
+    project_name      = "edion-net-dev"
     workspace_name    = "*"
   }
 }
@@ -37,13 +37,13 @@ data "aws_iam_policy_document" "tfc_oid_assume_role_policy" {
     condition {
       test     = "StringLike"
       variable = "${local.terraform_cloud.hostname}:sub"
-      values   = ["organization:${local.terraform_cloud.organization_name}:project:${local.terraform_cloud.project_name}:workspace:${local.terraform_cloud.workspace_name}:run_phase:*"]
+      values   = ["organization:vti:project:edion-net-dev:workspace:*:run_phase:*"]
     }
   }
 }
 
 resource "aws_iam_role" "tfc_role" {
-  name               = "${local.resource_prefix}-terraformcloud"
+  name               = "edion-net-terraformcloud"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.tfc_oid_assume_role_policy.json
 }
