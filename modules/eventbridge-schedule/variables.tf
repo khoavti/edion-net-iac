@@ -1,0 +1,1 @@
+// eventbridge-schedule - variables.tf

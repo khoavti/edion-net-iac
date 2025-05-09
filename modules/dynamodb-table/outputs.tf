@@ -1,0 +1,1 @@
+// dynamodb-table - outputs.tf
