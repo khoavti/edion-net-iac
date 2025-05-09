@@ -13,7 +13,8 @@ resource "aws_scheduler_schedule" "this" {
     mode = "OFF" 
   }
 
-  schedule_expression = each.value.schedule_expression 
+  schedule_expression = each.value.schedule_expression
+  schedule_expression_timezone = "Asia/Tokyo"
 
   target {
 
