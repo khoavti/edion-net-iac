@@ -2,31 +2,17 @@
 # Terraform specific files
 # -----------------------------------------------------------------------------
 
-# Local Terraform state files. Sử dụng remote state được khuyến khích mạnh mẽ.
 *.tfstate
 *.tfstate.*.backup
 
-# .terraform directory chứa các plugin của provider và các module đã tải xuống.
-# Thư mục này được tạo tự động bởi `terraform init`.
 .terraform/
 
-# Các file plan của Terraform. Có thể chứa thông tin nhạy cảm.
 *.tfplan
 *.tfplan.json
 
-# Crash log files của Terraform.
 crash.log
 crash.*.log
 
-# Override files.
-# Các tệp này có thể được sử dụng để ghi đè các biến Terraform.
-# Nếu chúng chứa thông tin nhạy cảm, chúng không nên được commit.
-# Nếu chúng chứa cấu hình không nhạy cảm cho một môi trường cụ thể,
-# bạn có thể muốn commit chúng (ví dụ: development.tfvars).
-# Tuy nhiên, các tệp `terraform.tfvars` và `*.auto.tfvars` thường được commit
-# nếu không chứa thông tin nhạy cảm.
-# Nếu bạn có các tệp tfvars chứa thông tin nhạy cảm, hãy thêm chúng vào đây.
-# Ví dụ:
 # secrets.tfvars
 # sensitive.auto.tfvars
 
@@ -37,12 +23,6 @@ terraform.rc
 # -----------------------------------------------------------------------------
 # Terraform Dependency Lock File
 # -----------------------------------------------------------------------------
-# File này ghi lại các phiên bản provider đã chọn để đảm bảo `terraform init`
-# luôn cài đặt cùng một phiên bản provider.
-# Thông thường, bạn NÊN commit file này vào Git repository của mình.
-# Tuy nhiên, nếu bạn gặp vấn đề về xung đột hợp nhất (merge conflicts) thường xuyên
-# hoặc có lý do cụ thể khác, bạn có thể bỏ qua nó.
-# Nếu muốn bỏ qua, hãy bỏ comment dòng dưới đây:
 # .terraform.lock.hcl
 
 # -----------------------------------------------------------------------------
@@ -137,5 +117,5 @@ nbproject/
 # npm-debug.log*
 # yarn-debug.log*
 # yarn-error.log*
-# package-lock.json # Thường được commit
-# yarn.lock          # Thường được commit
+# package-lock.json
+# yarn.lock          
