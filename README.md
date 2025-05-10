@@ -14,12 +14,6 @@ The project is organized into reusable **modules** and sequentially applied **la
 -   **`04-app-web/`**: Layer for deploying the "Application Web" (`申込web`), including its ECS Service, CodePipeline, CodeBuild, CodeDeploy.
 -   **`05-app-mgt/`**: Layer for deploying the "Application Management Web" (`申込web管理`), similar to `04-app-web/` but for the management system, and EventBridge Schedules.
 
-## Prerequisites
-
-1.  Install [Terraform](https://www.terraform.io/downloads.html) (version >= 1.0).
-2.  Configure AWS CLI with appropriate access credentials.
-3.  Create an S3 bucket to store Terraform state and a DynamoDB table for state locking (update this information in the `backend.tf` files of each layer).
-
 ## How to Deploy Layers
 
 Deploy the layers in the specified order. For each layer:
