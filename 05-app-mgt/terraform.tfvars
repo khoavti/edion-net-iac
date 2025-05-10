@@ -1,5 +1,3 @@
-# File: layers/04-app-web/dev.tfvars
-
 environment          = "dev"
 aws_region           = "ap-northeast-1"
 aws_account_id       = "555516925462"

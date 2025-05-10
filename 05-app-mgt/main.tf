@@ -1,7 +1,5 @@
-# File: layers/04-app-web/main.tf
-
-terraform {
-  backend "local" {}  # Cấu hình backend local cho layer này
+provider "aws" {
+  region = "ap-northeast-1"
 }
 
 module "eventbridge_scheduler" {
