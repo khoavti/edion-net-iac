@@ -1,6 +1,6 @@
 # Edion Net Dev - Infrastructure as Code (Terraform)
 
-This project uses Terraform to manage the infrastructure for the Edion Net Dev application lágrimas on AWS, encompassing "申込web" (Application Web) and "申込web管理" (Application Management Web).
+This project uses Terraform to manage the infrastructure for the Edion Net Dev application on AWS, encompassing "申込web" (Application Web) and "申込web管理" (Application Management Web).
 
 ## Project Structure
 
