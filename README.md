@@ -33,16 +33,6 @@ Deploy the layers in the specified order. For each layer:
 5.  `04-app-web`
 6.  `05-app-mgt`
 
-## State Management
-
-Each layer will have its own state file stored in the S3 backend configured in its respective `backend.tf` file. This isolates the state between layers.
-
-## Passing Data Between Layers
-
-Data (outputs) from previously applied layers are passed to subsequent layers using `data "terraform_remote_state"`.
-
----
-
 ## Layer Details
 
 ### `00-base/` (Base Layer)
@@ -98,9 +88,6 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   Application Load Balancers (ALBs):
         -   `edion-net-app-registration-dev-alb` (for "Application Web")
         -   `edion-net-app-manage-dev-alb` (for "Application Management Web")
-    -   CodeCommit Repositories:
-        -   `edion-net-dev-app-repository`
-        -   `edion-net-dev-app-mgt-repository`
 -   **Inputs:**
     -   `vpc_id`, `private_subnet_ids` (from `00-base`).
     -   `app_web_alb_sg_id`, `app_mgt_alb_sg_id` (from `01-security`).
@@ -110,8 +97,6 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   `mgt_ecs_cluster_arn`, `mgt_ecs_cluster_name`.
     -   `app_web_alb_arn`, `app_web_alb_dns_name`, `app_web_alb_http_listener_arn`.
     -   `app_mgt_alb_arn`, `app_mgt_alb_dns_name`, `app_mgt_alb_http_listener_arn`.
-    -   `app_repository_clone_url_http`, `app_repository_name`.
-    -   `mgt_repository_clone_url_http`, `mgt_repository_name`.
 
 ### `04-app-web/` ("Application Web" Layer)
 
@@ -121,14 +106,13 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   CodeBuild Project (`edion-net-dev-app-project01`).
     -   CodeDeploy Application (`edion-net-dev-app01`) and Deployment Group (`edion-net-dev-app-deploy_group01`).
     -   CodePipeline (`edion-net-dev-app-codepipeline`).
-    -   EventBridge Schedules (`edion-net-app-dev-stop-schedule`, `edion-net-app-dev-start-schedule`) to stop/start the ECS service.
 -   **Inputs:**
     -   ARNs/Names of ECS Cluster, ALB Listener, CodeCommit Repo (from `03-app-platform`).
     -   ARNs/Names of CloudWatch Log Group (from `02-shared-services`).
     -   `vpc_id`, `private_subnet_ids` (from `00-base`).
     -   `fargate_task_sg_id` (from `01-security`).
     -   Application configuration (image, port, env variables - via `.tfvars` file).
--   **Outputs:** (If needed for other systems)
+-   **Outputs:** (If needed)
 
 ### `05-app-mgt/` ("Application Management Web" Layer)
 
@@ -139,5 +123,11 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   CodeDeploy Application (`edion-net-dev-app-mgt01`) and Deployment Group (`edion-net-dev-app-mgt-deploy_group01`).
     -   CodePipeline (`edion-net-dev-app-mgt-codepipeline`).
     -   EventBridge Schedules (`edion-net-app-dev-stop-manage-schedule`, `edion-net-app-dev-start-manage-schedule`).
--   **Inputs:** Similar to `04-app-web/` but with corresponding "mgt" resources.
+    -   EventBridge Schedules (`edion-net-app-dev-stop-schedule`, `edion-net-app-dev-start-schedule`) to stop/start the ECS service.
+-   **Inputs:**
+    -   ARNs/Names of ECS Cluster, ALB Listener, CodeCommit Repo (from `03-app-platform`).
+    -   ARNs/Names of CloudWatch Log Group (from `02-shared-services`).
+    -   `vpc_id`, `private_subnet_ids` (from `00-base`).
+    -   `fargate_task_sg_id` (from `01-security`).
+    -   Application configuration (image, port, env variables - via `.tfvars` file).
 -   **Outputs:** (If needed)
