@@ -4,7 +4,7 @@ terraform {
     organization = "vti" 
 
     workspaces { 
-      name = "edion-net-iac" 
+      name = "edion-net-iac-datastore" 
     } 
   } 
 }
