@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "eventbridge_scheduler" {
-  source = "../modules/eventbridge-schedule"
+  source = "../../modules/eventbridge-schedule"
 
   environment        = var.environment
   aws_region         = var.aws_region
