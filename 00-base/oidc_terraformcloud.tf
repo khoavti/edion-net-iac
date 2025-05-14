@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "tfc_oid_assume_role_policy" {
 }
 
 resource "aws_iam_role" "tfc_role" {
-  name               = "edion-net-terraformcloud"
+  name               = "edion-net-terraform-oidc"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.tfc_oid_assume_role_policy.json
 }
