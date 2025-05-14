@@ -4,7 +4,7 @@ terraform {
     organization = "vti" 
 
     workspaces { 
-      name = "edion-net-dev-05-app-mgt" 
+      name = "edion-net-dev-02-shared" 
     } 
   } 
 }
