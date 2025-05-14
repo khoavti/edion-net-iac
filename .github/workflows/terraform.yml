@@ -1,19 +1,19 @@
-name: Terraform CI - dev/datastore
+name: Terraform CI - 02-shared-services
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'dev/datastore/**'
+      - '02-shared-services/**'
   workflow_dispatch:
   pull_request:
     paths:
-      - 'dev/datastore/**'
+      - '02-shared-services/**'
 
 jobs:
   terraform:
-    name: Terraform Apply - dev/datastore
+    name: Terraform Apply - 02-shared-services
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -21,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: dev/datastore
+        working-directory: 02-shared-services
 
     steps:
       - name: Checkout repository
