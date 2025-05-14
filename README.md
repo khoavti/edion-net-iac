@@ -138,7 +138,7 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   `vpc_id`, `private_subnet_ids` (from `00-base`).
     -   `fargate_task_sg_id` (from `01-security`).
     -   Application configuration (image, port, env variables - via `.tfvars` file).
--   **Outputs:** (If needed for other systems)
+-   **Outputs:** (update)
 
 ### `05-eventbridge/` ("EventBridge Schedules" Layer)
 
@@ -150,4 +150,4 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   ARNs/Names of ECS Cluster, ALB Listener, CodeCommit Repo (from `03-app-platform`).
     -   `vpc_id`, `private_subnet_ids` (from `00-base`).
     -   `fargate_task_sg_id` (from `01-security`).
--   **Outputs:** (If needed)
+-   **Outputs:** (update)
