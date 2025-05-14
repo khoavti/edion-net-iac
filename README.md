@@ -140,9 +140,9 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   Application configuration (image, port, env variables - via `.tfvars` file).
 -   **Outputs:** (If needed for other systems)
 
-### `05-app-mgt/` ("Application Management Web" Layer)
+### `05-eventbridge/` ("EventBridge Schedules" Layer)
 
--   **Purpose:** Deploys the entire "Application Management Web", similar to `04-app-web/`.
+-   **Purpose:** Deploys the entire "EventBridge Schedules".
 -   **Key Resources:**
     -   EventBridge Schedules (`edion-net-app-dev-stop-manage-schedule`, `edion-net-app-dev-start-manage-schedule`).
     -   EventBridge Schedules (`edion-net-app-dev-stop-schedule`, `edion-net-app-dev-start-schedule`) to stop/start the ECS service.
