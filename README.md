@@ -11,8 +11,8 @@ The project is organized into reusable **modules** and sequentially applied **la
 -   **`01-security/`**: Layer for managing security aspects, primarily Security Groups.
 -   **`02-shared-services/`**: Layer for creating shared services like S3 buckets (for uploads, logs), DynamoDB (for sessions), and CloudWatch Log Groups.
 -   **`03-app-platform/`**: Layer for setting up the application runtime platform, including ECS Clusters, Application Load Balancers (ALBs), and CodeCommit Repositories.
--   **`04-app-web/`**: Layer for deploying the "Application Web" (`申込web`), including its ECS Service, CodePipeline, CodeBuild, CodeDeploy.
--   **`05-app-mgt/`**: Layer for deploying the "Application Management Web" (`申込web管理`), similar to `04-app-web/` but for the management system, and EventBridge Schedules.
+-   **`04-app-web/`**: Layer for deploying the "Application Web", including its ECS Service, CodePipeline, CodeBuild, CodeDeploy.
+-   **`05-eventbridge/`**: Layer for the EventBridge Schedules.
 
 ## Prerequisites
 
@@ -37,7 +37,7 @@ Deploy the layers in the specified order. For each layer:
 3.  `02-shared-services`
 4.  `03-app-platform`
 5.  `04-app-web`
-6.  `05-app-mgt`
+6.  `05-eventbridge`
 
 ## State Management
 
@@ -127,7 +127,11 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
     -   CodeBuild Project (`edion-net-dev-app-project01`).
     -   CodeDeploy Application (`edion-net-dev-app01`) and Deployment Group (`edion-net-dev-app-deploy_group01`).
     -   CodePipeline (`edion-net-dev-app-codepipeline`).
-    -   EventBridge Schedules (`edion-net-app-dev-stop-schedule`, `edion-net-app-dev-start-schedule`) to stop/start the ECS service.
+    -   ECS Service (`edion-net-app-manage-dev-service`) and Task Definition (`manage-dev-taskdef`).
+    -   CodeBuild Project (`edion-net-dev-app-mgt-project01`).
+    -   CodeDeploy Application (`edion-net-dev-app-mgt01`) and Deployment Group (`edion-net-dev-app-mgt-deploy_group01`).
+    -   CodePipeline (`edion-net-dev-app-mgt-codepipeline`).
+
 -   **Inputs:**
     -   ARNs/Names of ECS Cluster, ALB Listener, CodeCommit Repo (from `03-app-platform`).
     -   ARNs/Names of CloudWatch Log Group (from `02-shared-services`).
@@ -140,10 +144,10 @@ Data (outputs) from previously applied layers are passed to subsequent layers us
 
 -   **Purpose:** Deploys the entire "Application Management Web", similar to `04-app-web/`.
 -   **Key Resources:**
-    -   ECS Service (`edion-net-app-manage-dev-service`) and Task Definition (`manage-dev-taskdef`).
-    -   CodeBuild Project (`edion-net-dev-app-mgt-project01`).
-    -   CodeDeploy Application (`edion-net-dev-app-mgt01`) and Deployment Group (`edion-net-dev-app-mgt-deploy_group01`).
-    -   CodePipeline (`edion-net-dev-app-mgt-codepipeline`).
     -   EventBridge Schedules (`edion-net-app-dev-stop-manage-schedule`, `edion-net-app-dev-start-manage-schedule`).
--   **Inputs:** Similar to `04-app-web/` but with corresponding "mgt" resources.
+    -   EventBridge Schedules (`edion-net-app-dev-stop-schedule`, `edion-net-app-dev-start-schedule`) to stop/start the ECS service.
+-   **Inputs:** 
+    -   ARNs/Names of ECS Cluster, ALB Listener, CodeCommit Repo (from `03-app-platform`).
+    -   `vpc_id`, `private_subnet_ids` (from `00-base`).
+    -   `fargate_task_sg_id` (from `01-security`).
 -   **Outputs:** (If needed)
