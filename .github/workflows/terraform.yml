@@ -15,7 +15,7 @@ jobs:
       matrix:
         layer:
           - 02-shared-services
-          - 05-app-mgt
+          - 05-eventbridge
     permissions:
       id-token: write
       contents: read
