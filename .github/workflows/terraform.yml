@@ -1,27 +1,28 @@
-name: Terraform CI - 02-shared-services
+name: Terraform CI - All Layers
 
 on:
   push:
     branches:
       - main
-    paths:
-      - '02-shared-services/**'
   workflow_dispatch:
   pull_request:
-    paths:
-      - '02-shared-services/**'
 
 jobs:
   terraform:
-    name: Terraform Apply - 02-shared-services
+    name: Terraform Apply - ${{ matrix.layer }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        layer:
+          - 02-shared-services
+          - 05-app-mgt
     permissions:
       id-token: write
       contents: read
 
     defaults:
       run:
-        working-directory: 02-shared-services
+        working-directory: ${{ matrix.layer }}
 
     steps:
       - name: Checkout repository
@@ -45,6 +46,6 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+#      - name: Terraform Apply
+#        if: github.ref == 'refs/heads/main'
+#        run: terraform apply -auto-approve
