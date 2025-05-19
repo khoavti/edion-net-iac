@@ -1,1 +1,0 @@
-// ecs-cluster - variables.tf

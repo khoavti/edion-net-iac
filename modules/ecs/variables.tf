@@ -3,6 +3,11 @@ variable "clusters" {
   type = map(object({
     name = string
     container_insights = bool
+    # kms_key = object({
+    #   description = string
+    #   deletion_window_in_days = number
+    #   alias = string
+    # })
   }))
 }
 
@@ -26,10 +31,4 @@ variable "services" {
       assign_public_ip = bool
     })
   }))
-}
-
-variable "aws_region" {
-  description = "AWS region to deploy resources"
-  type        = string
-  default     = "ap-northeast-1"
 }
