@@ -1,48 +1,70 @@
-# File: layers/04-app-web/variables.tf
-
 variable "environment" {
-  description = "Deployment environment (e.g., dev, staging, prod)."
-  type        = string
+  type    = string
+  default = "dev"
 }
 
 variable "aws_region" {
-  description = "AWS region for the layer's resources."
-  type        = string
+  type    = string
+  default = "ap-northeast-1"
 }
 
 variable "aws_account_id" {
-  description = "AWS account ID for the layer's resources."
-  type        = string
-}
-
-variable "app_ecs_cluster_name" {
-  description = "Name of the application ECS cluster created in a lower layer."
-  type        = string
-}
-
-variable "mgt_ecs_cluster_name" {
-  description = "Name of the management application ECS cluster created in a lower layer."
-  type        = string
-}
-
-variable "eventbridge_scheduler_role_arn" {
-  description = "ARN of the IAM role that EventBridge Scheduler will assume to manage ECS services."
-  type        = string
+  type    = string
+  default = "555516925462"
 }
 
 variable "schedules" {
-  description = "Configuration for EventBridge Schedules to be created in this layer."
   type = list(object({
     schedule_name       = string
     description         = string
     schedule_expression = string
     timezone            = string
     state               = string
-    target_type         = string
     target_cluster_name = string
     target_service_name = string
     target_task_count   = number
-    task_definition_arn = string
   }))
-  default = []
+
+  default = [
+    {
+      schedule_name       = "dev-stop-app-service-schedule"
+      description         = "Stop Registration ECS service nightly at 21:00 JST for dev."
+      schedule_expression = "cron(0 21 * * ? *)"
+      timezone            = "Asia/Tokyo"
+      state               = "ENABLED"
+      target_cluster_name = "edion-net-dev-app-cluster01"
+      target_service_name = "edion-net-app-registration-dev-service"
+      target_task_count   = 0
+    },
+    {
+      schedule_name       = "dev-stop-manage-service-schedule"
+      description         = "Stop Admin ECS service nightly at 21:00 JST for dev."
+      schedule_expression = "cron(0 21 * * ? *)"
+      timezone            = "Asia/Tokyo"
+      state               = "ENABLED"
+      target_cluster_name = "edion-net-dev-app-mgt-cluster01"
+      target_service_name = "edion-net-app-manage-dev-service"
+      target_task_count   = 0
+    },
+    {
+      schedule_name       = "dev-start-app-service-schedule"
+      description         = "Start Registration ECS service daily at 09:00 JST for dev."
+      schedule_expression = "cron(0 9 * * ? *)"
+      timezone            = "Asia/Tokyo"
+      state               = "ENABLED"
+      target_cluster_name = "edion-net-dev-app-cluster01"
+      target_service_name = "edion-net-app-registration-dev-service"
+      target_task_count   = 1
+    },
+    {
+      schedule_name       = "dev-start-manage-service-schedule"
+      description         = "Start Admin ECS service daily at 09:00 JST for dev."
+      schedule_expression = "cron(0 9 * * ? *)"
+      timezone            = "Asia/Tokyo"
+      state               = "ENABLED"
+      target_cluster_name = "edion-net-dev-app-mgt-cluster01"
+      target_service_name = "edion-net-app-manage-dev-service"
+      target_task_count   = 1
+    }
+  ]
 }

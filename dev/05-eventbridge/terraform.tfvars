@@ -2,10 +2,6 @@ environment          = "dev"
 aws_region           = "ap-northeast-1"
 aws_account_id       = "555516925462"
 
-app_ecs_cluster_name = "edion-net-dev-app-cluster01"
-mgt_ecs_cluster_name = "edion-net-dev-app-mgt-cluster01"
-eventbridge_scheduler_role_arn = "arn:aws:iam::555516925462:role/dev-eventbridge-scheduler-ecs-updateservice-role"
-
 schedules = [
   {
     schedule_name       = "dev-stop-app-service-schedule"

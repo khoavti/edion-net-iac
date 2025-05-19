@@ -8,6 +8,42 @@ on:
   pull_request:
 
 jobs:
+  layer-0:
+    name: Terraform Apply - 00-base
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    defaults:
+      run:
+        working-directory: dev/00-base
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::555516925462:role/edion-net-github-action
+          aws-region: ap-northeast-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+#      - name: Terraform Apply
+#        if: github.ref == 'refs/heads/main'
+#        run: terraform apply -auto-approve
+
   layer-1:
     name: Terraform Apply - 01-security
     runs-on: ubuntu-latest
