@@ -1,70 +1,60 @@
-variable "environment" {
-  type    = string
-  default = "dev"
+variable "role_name" {
+  description = "Tên IAM Role"
+  type        = string
 }
 
-variable "aws_region" {
-  type    = string
-  default = "ap-northeast-1"
+variable "trusted_service" {
+  description = "Dịch vụ được phép assume role"
+  type        = string
 }
 
-variable "aws_account_id" {
-  type    = string
-  default = "555516925462"
+variable "policy_arns" {
+  description = "Danh sách policy ARN được attach vào role"
+  type        = list(string)
 }
 
-variable "schedules" {
-  type = list(object({
-    schedule_name       = string
-    description         = string
-    schedule_expression = string
-    timezone            = string
-    state               = string
-    target_cluster_name = string
-    target_service_name = string
-    target_task_count   = number
-  }))
 
-  default = [
-    {
-      schedule_name       = "dev-stop-app-service-schedule"
-      description         = "Stop Registration ECS service nightly at 21:00 JST for dev."
-      schedule_expression = "cron(0 21 * * ? *)"
-      timezone            = "Asia/Tokyo"
-      state               = "ENABLED"
-      target_cluster_name = "edion-net-dev-app-cluster01"
-      target_service_name = "edion-net-app-registration-dev-service"
-      target_task_count   = 0
-    },
-    {
-      schedule_name       = "dev-stop-manage-service-schedule"
-      description         = "Stop Admin ECS service nightly at 21:00 JST for dev."
-      schedule_expression = "cron(0 21 * * ? *)"
-      timezone            = "Asia/Tokyo"
-      state               = "ENABLED"
-      target_cluster_name = "edion-net-dev-app-mgt-cluster01"
-      target_service_name = "edion-net-app-manage-dev-service"
-      target_task_count   = 0
-    },
-    {
-      schedule_name       = "dev-start-app-service-schedule"
-      description         = "Start Registration ECS service daily at 09:00 JST for dev."
-      schedule_expression = "cron(0 9 * * ? *)"
-      timezone            = "Asia/Tokyo"
-      state               = "ENABLED"
-      target_cluster_name = "edion-net-dev-app-cluster01"
-      target_service_name = "edion-net-app-registration-dev-service"
-      target_task_count   = 1
-    },
-    {
-      schedule_name       = "dev-start-manage-service-schedule"
-      description         = "Start Admin ECS service daily at 09:00 JST for dev."
-      schedule_expression = "cron(0 9 * * ? *)"
-      timezone            = "Asia/Tokyo"
-      state               = "ENABLED"
-      target_cluster_name = "edion-net-dev-app-mgt-cluster01"
-      target_service_name = "edion-net-app-manage-dev-service"
-      target_task_count   = 1
-    }
-  ]
+variable "function_name" {
+  type        = string
+  description = "Tên của Lambda function"
 }
+
+variable "description" {
+  type        = string
+  description = "Mô tả chức năng của Lambda"
+}
+
+variable "handler" {
+  type        = string
+  description = "Handler cho Lambda"
+}
+
+variable "runtime" {
+  type        = string
+  description = "Runtime của Lambda function"
+}
+
+variable "source_file" {
+  type        = string
+  description = "Đường dẫn file nguồn (Python script)"
+  default     = "lambda/ecs_lambda_start_stop.py"
+}
+
+variable "role_arn" {
+  type        = string
+  description = "IAM Role ARN dùng cho Lambda"
+}
+
+
+variable "lambda_function_name" {
+  description = "Tên Lambda function để gắn vào EventBridge"
+  type        = string
+}
+
+variable "lambda_function_arn" {
+  description = "ARN của Lambda function"
+  type        = string
+}
+
+
+
