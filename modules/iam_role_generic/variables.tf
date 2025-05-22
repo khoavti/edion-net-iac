@@ -1,14 +1,18 @@
-variable "name" {
-  description = "Name of the IAM role"
+variable "role_name" {
+  description = "Name of the IAM Role"
   type        = string
 }
 
-variable "assume_role_policy" {
-  description = "The assume role policy document in JSON"
+variable "trusted_service" {
+  description = "Trusted AWS service (e.g., scheduler.amazonaws.com)"
   type        = string
 }
 
-variable "policy_arns" {
-  description = "List of IAM policy ARNs to attach"
-  type        = list(string)
+variable "policy_statements" {
+  description = "IAM policy statements list"
+  type = list(object({
+    Effect   = string
+    Action   = any
+    Resource = any
+  }))
 }

@@ -1,16 +1,27 @@
 resource "aws_iam_role" "this" {
-  name               = var.name
-  assume_role_policy = var.assume_role_policy
+  name = var.role_name
+
+  assume_role_policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Effect    = "Allow",
+        Principal = {
+          Service = var.trusted_service
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
 
-resource "aws_iam_role_policy_attachment" "this" {
-  for_each = toset(var.policy_arns)
-  role     = aws_iam_role.this.name
-  policy_arn = each.value
-}
-
-output "iam_role_name" {
-  value = aws_iam_role.this.name
+resource "aws_iam_role_policy" "this" {
+  name   = "${var.role_name}-inline-policy"
+  role   = aws_iam_role.this.id
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = var.policy_statements
+  })
 }
 
 output "iam_role_arn" {
