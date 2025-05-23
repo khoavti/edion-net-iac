@@ -1,15 +1,15 @@
 target_groups = {
   registration-blue = {
     name        = "edion-net-app-re-dev-tg-blue"
-    port        = 443
-    protocol    = "HTTPS"
+    port        = 80
+    protocol    = "HTTP"
     vpc_id      = "vpc-0d6e7b64616fc440d"
     target_type = "ip"
   },
   registration-green = {
     name        = "edion-net-app-re-dev-tg-green"
-    port        = 443
-    protocol    = "HTTPS"
+    port        = 80
+    protocol    = "HTTP"
     vpc_id      = "vpc-0d6e7b64616fc440d"
     target_type = "ip"
   },
@@ -31,7 +31,7 @@ target_groups = {
 
 listener = {
   manage = {
-    elb_arn  = "arn:aws:elasticloadbalancing:ap-northeast-1:555516925462:loadbalancer/app/testedion/8ac31d111ad814aa"
+    elb_arn  = "arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:loadbalancer/app/testedion/8ac31d111ad814aa"
     protocol = "HTTP"
     port     = 81
     default_action = {
@@ -40,7 +40,7 @@ listener = {
     }
   },
   registration = {
-    elb_arn  = "arn:aws:elasticloadbalancing:ap-northeast-1:555516925462:loadbalancer/app/testedion/8ac31d111ad814aa"
+    elb_arn  = "arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:loadbalancer/app/testedion/8ac31d111ad814aa"
     protocol = "HTTP"
     port     = 82
     default_action = {

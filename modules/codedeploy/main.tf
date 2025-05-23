@@ -11,7 +11,7 @@ resource "aws_codedeploy_deployment_group" "ecs_deployment_group" {
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
   app_name               = aws_codedeploy_app.ecs_application[each.key].name
   deployment_group_name  = each.value.deployment_group
-  service_role_arn       = "arn:aws:iam::555516925462:role/CodeDeployServiceRole"
+  service_role_arn       = "arn:aws:iam::968040114700:role/CodeDeployServiceRole"
 
   deployment_style {
     deployment_type   = "BLUE_GREEN"

@@ -7,5 +7,6 @@ variable "codebuild_projects" {
     buildspec      = string
     repository_url = string
     connection_arn = string
+    log_name       = string
   }))
 }

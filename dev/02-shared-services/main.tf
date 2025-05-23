@@ -1,13 +1,3 @@
-provider "aws" {
-  region = "ap-northeast-1"
-}
-
-
-module "cloudwatch_log_groups" {
-  source     = "../../modules/cloudwatch-log-group"
-  log_groups = var.log_groups
-}
-
 module "s3" {
   source = "../../modules/s3"
   
@@ -18,4 +8,9 @@ module "dynamodb" {
   source = "../../modules/dynamodb"
   
   dynamodb_config = var.dynamodb_config
+}
+
+module "cloudwatch_log_groups" {
+  source     = "../../modules/cloudwatch-log-group"
+  log_groups = var.log_groups
 }

@@ -16,7 +16,7 @@ module "code_pipeline" {
   pipelines = var.pipelines
 
   depends_on = [
-    module.code_deploy,    # Đảm bảo CodeDeploy được tạo trước CodePipeline
-    module.codebuild       # Đảm bảo CodeBuild được tạo trước CodePipeline
+    module.code_deploy,
+    module.codebuild      
   ]
 }

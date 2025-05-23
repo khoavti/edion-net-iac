@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "target_groups" {
 
 # Create HTTPS listener
 resource "aws_lb_listener" "listeners" {
-  for_each = var.listener  # Lặp qua các listener từ var.listener
+  for_each = var.listener  
 
   depends_on        = [aws_lb_target_group.target_groups]
   load_balancer_arn = each.value.elb_arn
@@ -25,7 +25,7 @@ resource "aws_lb_listener" "listeners" {
 
     forward {
       dynamic "target_group" {
-        for_each = each.value.default_action.default_target_groups  # Duyệt qua các target group
+        for_each = each.value.default_action.default_target_groups 
         content {
           arn = aws_lb_target_group.target_groups[target_group.value].arn
         }

@@ -1,11 +1,3 @@
-variable "log_groups" {
-  type = list(object({
-    name              = string
-    retention_in_days = number
-    class             = string
-  }))
-}
-
 variable "secure_buckets" {
   description = "Map of secure S3 buckets with enhanced security configurations"
   type = map(object({
@@ -42,3 +34,10 @@ variable "aws_region" {
   default     = "ap-northeast-1"
 }
 
+variable "log_groups" {
+  type = list(object({
+    name              = string
+    retention_in_days = number
+    class             = string
+  }))
+}

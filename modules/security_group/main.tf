@@ -3,7 +3,7 @@ resource "aws_security_group" "edion_net_app_ecs_dev_sg" {
   description = "Security group for ECS service"
   vpc_id      = var.vpc_id  
 
-  # Tạo ingress rules động từ ingress_rules
+
   dynamic "ingress" {
     for_each = var.ingress_rules
     content {
@@ -15,7 +15,7 @@ resource "aws_security_group" "edion_net_app_ecs_dev_sg" {
     }
   }
 
-  # Tạo egress rule
+
   egress {
     from_port   = var.egress_rules.from_port
     to_port     = var.egress_rules.to_port

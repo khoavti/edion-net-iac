@@ -16,7 +16,11 @@ resource "aws_codebuild_project" "codebuild_project" {
     image        = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
     type         = "LINUX_CONTAINER"
   }
-
+  logs_config {
+    cloudwatch_logs {
+      group_name =   each.value.log_name
+      }
+  }
   source {
     type     = "GITHUB"
     location = each.value.repository_url

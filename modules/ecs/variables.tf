@@ -2,7 +2,8 @@ variable "clusters" {
   description = "Map of ECS clusters configurations"
   type = map(object({
     name = string
-    container_insights = bool
+    container_insights = string
+    log_name = string
     # kms_key = object({
     #   description = string
     #   deletion_window_in_days = number
