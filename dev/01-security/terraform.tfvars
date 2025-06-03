@@ -1,96 +1,35 @@
 target_groups = {
   registration-blue = {
-    name        = "edion-net-app-re-dev-tg-blue"
+    name        = "edion-net-registration-tg-blue"
     port        = 80
     protocol    = "HTTP"
-    vpc_id      = "vpc-0d6e7b64616fc440d"
+    vpc_id      = "vpc-0ee949e595e356cc9"
     target_type = "ip"
   },
   registration-green = {
-    name        = "edion-net-app-re-dev-tg-green"
+    name        = "edion-net-registration-tg-green"
     port        = 80
     protocol    = "HTTP"
-    vpc_id      = "vpc-0d6e7b64616fc440d"
+    vpc_id      = "vpc-0ee949e595e356cc9"
     target_type = "ip"
   },
   manage-blue = {
-    name        = "edion-net-app-ma-dev-tg-blue"
+    name        = "edion-net-manage-tg-blue"
     port        = 80
     protocol    = "HTTP"
-    vpc_id      = "vpc-0d6e7b64616fc440d"
+    vpc_id      = "vpc-0ee949e595e356cc9"
     target_type = "ip"
   },
   manage-green = {
-    name        = "edion-net-app-ma-dev-tg-green"
+    name        = "edion-net-manage-tg-green"
     port        = 80
     protocol    = "HTTP"
-    vpc_id      = "vpc-0d6e7b64616fc440d"
+    vpc_id      = "vpc-0ee949e595e356cc9"
     target_type = "ip"
   }
 }
 
-listener = {
-  manage = {
-    elb_arn  = "arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:loadbalancer/app/testedion/8ac31d111ad814aa"
-    protocol = "HTTP"
-    port     = 81
-    default_action = {
-      type                  = "forward"
-      default_target_groups = ["manage-blue"]
-    }
-  },
-  registration = {
-    elb_arn  = "arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:loadbalancer/app/testedion/8ac31d111ad814aa"
-    protocol = "HTTP"
-    port     = 82
-    default_action = {
-      type                  = "forward"
-      default_target_groups = ["registration-blue"]
-    }
-  }
-}
-
-
-
-listener_rules = {
-  registration = {
-    listener_key = "registration"
-    priority     = 30
-    condition = {
-      host_header = ["registration.domain"]
-    }
-    forward_targets = [
-      {
-        target_group_key = "registration-green"
-        weight           = 0
-      },
-      {
-        target_group_key = "registration-blue"
-        weight           = 100
-      }
-    ]
-  },
-
-  manage = {
-    listener_key = "manage"
-    priority     = 30
-    condition = {
-      host_header = ["manage.domain"]
-    }
-    forward_targets = [
-      {
-        target_group_key = "manage-green"
-        weight           = 0
-      },
-      {
-        target_group_key = "manage-blue"
-        weight           = 100
-      }
-    ]
-  }
-}
-
-vpc_id  = "vpc-0d6e7b64616fc440d"
+vpc_id  = "vpc-0ee949e595e356cc9"
 sg_name = "edion-net-app-ecs-dev-sg"
 ingress_rules = {
   db_access = {
@@ -98,21 +37,21 @@ ingress_rules = {
     protocol        = "tcp"
     from_port       = 5432
     to_port         = 5432
-    security_groups = ["sg-0cd62144c7055a2b3"]
+    security_groups = ["sg-0bfa4d4d852d89b1d", "sg-0f9d08771591aecfe", "sg-049dc0be28b35b093"]
   },
   https_access = {
     name            = "HTTPS access"
     protocol        = "tcp"
     from_port       = 443
     to_port         = 443
-    security_groups = ["sg-0cd62144c7055a2b3"]
+    security_groups = ["sg-0bfa4d4d852d89b1d", "sg-0f9d08771591aecfe", "sg-049dc0be28b35b093"]
   },
   http_access = {
     name            = "HTTP access"
     protocol        = "tcp"
     from_port       = 80
     to_port         = 80
-    security_groups = ["sg-0cd62144c7055a2b3"]
+    security_groups = ["sg-0bfa4d4d852d89b1d", "sg-0f9d08771591aecfe", "sg-049dc0be28b35b093"]
   }
 }
 

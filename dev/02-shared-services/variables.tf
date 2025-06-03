@@ -12,12 +12,6 @@ variable "secure_buckets" {
   }))
 }
 
-variable "artifact_buckets" {
-  description = "Map of simple artifact S3 buckets for CodePipeline"
-  type = map(object({
-    bucket_name = string
-  }))
-}
 
 variable "dynamodb_config" {
   description = "Configuration for DynamoDB table"

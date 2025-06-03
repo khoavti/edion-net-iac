@@ -1,66 +1,28 @@
-pipelines = {
-  registration = {
-    pipeline_name = "edion-net-dev-app-codepipeline"
-    role_arn    = "arn:aws:iam::968040114700:role/service-role/AWSCodePipelineServiceRole-ap-northeast-1-testcicd"
-    bucket_arn  = "s3-artifact-registration"
-    repo_id      = "quangnguyenviet109/VTI-EXV"
-    branch_name  = "main"
-    project_name = "edion-net-dev-app-project01"
-    app_name     = "edion-net-dev-app01"
-    deploy_group = "edion-net-dev-app-deploy_group01"
-    connection_arn = "arn:aws:codeconnections:ap-northeast-1:968040114700:connection/19cefa9b-7398-4768-8d99-f43e4fb6b9bf"
+pipelines = [
+  {
+    name                  = "edion-net-dev-app"
+    repo_name             = "edion-net-dev-app-repository"
+    image_repo_name       = "edion-net-dev-app-repository"
+    codedeploy_app_name   = "edion-net-dev-app01"
+    codedeploy_group_name = "edion-net-dev-app-deploy_group01"
+    cluster_name          = "edion-net-dev-app-cluster01"
+    service_name          = "edion-net-app-registration-dev-service"
+    target_group_blue     = "edion-net-registration-tg-blue"
+    target_group_green    = "edion-net-registration-tg-green"
+    listener_arn          = "arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:listener/app/dev-support-web/84459c316c768764/74cf8d19eedf0b81"
+    account_id            = "968040114700"
   },
-  manage = {
-    pipeline_name = "edion-net-dev-app-mgt-codepipeline"
-    role_arn    = "arn:aws:iam::968040114700:role/service-role/AWSCodePipelineServiceRole-ap-northeast-1-testcicd"
-    bucket_arn   = "s3-artifact-manage"
-    repo_id      = "quangnguyenviet109/VTI-EXV"
-    branch_name  = "main"
-    project_name = "edion-net-dev-app-mgt-project01"
-    app_name     = "edion-net-dev-app-mgt01"
-    deploy_group = "edion-net-dev-app-mgt-deploy_group01"
-    connection_arn = "arn:aws:codeconnections:ap-northeast-1:968040114700:connection/19cefa9b-7398-4768-8d99-f43e4fb6b9bf"
+  {
+    name                  = "edion-net-dev-mgt"
+    repo_name             = "edion-net-dev-app-mgt-repository"
+    image_repo_name       = "edion-net-dev-app-mgt-repository"
+    codedeploy_app_name   = "edion-net-dev-mgt01"
+    codedeploy_group_name = "edion-net-dev-mgt-deploy_group01"
+    cluster_name          = "edion-net-dev-app-mgt-cluster01"
+    service_name          = "edion-net-app-manage-dev-service"
+    target_group_blue     = "edion-net-manage-tg-blue"
+    target_group_green    = "edion-net-manage-tg-green"
+    listener_arn          = "arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:listener/app/dev-edion-isp-private-elb/9db6c27a3ebc3437/baa2f812175bfdba"
+    account_id            = "968040114700"
   }
-}
-
-deployments = {
-  registration = {
-    app_name           = "edion-net-dev-app01"
-    cluster_name       = "edion-net-dev-app-cluster01"
-    service_name       = "edion-net-app-registration-dev-service"
-    deployment_group   = "edion-net-dev-app-deploy_group01"
-    listener_arn = ["arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:listener/app/testedion/8ac31d111ad814aa/4d6d14ff9127c268"]
-    target_group_1 = "edion-net-app-re-dev-tg-blue"
-    target_group_2 = "edion-net-app-re-dev-tg-green"
-  },
-  manage = {
-    app_name           = "edion-net-dev-app-mgt01"
-    cluster_name       = "edion-net-dev-app-mgt-cluster01"
-    service_name       = "edion-net-app-manage-dev-service"
-    deployment_group   = "edion-net-dev-app-mgt-deploy_group01"
-    listener_arn = ["arn:aws:elasticloadbalancing:ap-northeast-1:968040114700:listener/app/testedion/8ac31d111ad814aa/199050f995e176e6"]
-    target_group_1 = "edion-net-app-ma-dev-tg-blue"
-    target_group_2 = "edion-net-app-ma-dev-tg-green"
-  }
-}
-
-codebuild_projects = {
-  registration = {
-    project_name   = "edion-net-dev-app-project01"
-    description    = "edion-net-dev-app-project01_codebuild"
-    service_role   = "arn:aws:iam::968040114700:role/service-role/codebuild-cicd_test-service-role"
-    buildspec      = "buildspec.yaml"
-    repository_url = "https://github.com/quangnguyenviet109/VTI-EXV#main"
-    connection_arn = "arn:aws:codeconnections:ap-northeast-1:968040114700:connection/19cefa9b-7398-4768-8d99-f43e4fb6b9bf"
-    log_name       = "/edion-net-dev/codepipeline/app-codepipeline"
-  },
-  manage = {
-    project_name   = "edion-net-dev-app-mgt-project01"
-    description    = "edion-net-dev-app-mgt-project01_codebuild"
-    service_role   = "arn:aws:iam::968040114700:role/service-role/codebuild-cicd_test-service-role"
-    buildspec      = "buildspec.yaml"
-    repository_url = "https://github.com/quangnguyenviet109/VTI-EXV#main"
-    connection_arn = "arn:aws:codeconnections:ap-northeast-1:968040114700:connection/19cefa9b-7398-4768-8d99-f43e4fb6b9bf"
-    log_name       = "/edion-net-dev/codepipeline/app-mgt-codepipeline"
-  }
-}
+]

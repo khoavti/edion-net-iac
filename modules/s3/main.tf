@@ -3,10 +3,7 @@ resource "aws_s3_bucket" "secure_buckets" {
   for_each = var.secure_buckets
   
   bucket = each.value.bucket_name
-  
-  # The region attribute is deprecated in newer Terraform AWS provider versions
-  # If you need to specify a region, use provider aliases instead
-  
+   
   object_lock_enabled = each.value.object_lock_enabled
 }
 
@@ -52,25 +49,6 @@ resource "aws_s3_bucket_public_access_block" "secure_buckets" {
   for_each = var.secure_buckets
   
   bucket = aws_s3_bucket.secure_buckets[each.key].id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-}
-
-# Create simple artifact buckets for CodePipeline
-resource "aws_s3_bucket" "artifact_buckets" {
-  for_each = var.artifact_buckets
-  
-  bucket = each.value.bucket_name
-}
-
-# Add default public access block for artifact buckets as well for better security
-resource "aws_s3_bucket_public_access_block" "artifact_buckets" {
-  for_each = var.artifact_buckets
-  
-  bucket = aws_s3_bucket.artifact_buckets[each.key].id
 
   block_public_acls       = true
   block_public_policy     = true

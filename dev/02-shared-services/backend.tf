@@ -1,10 +1,10 @@
-#terraform { 
-#  cloud { 
-#    
-#    organization = "edion-reconstruct" 
-#
-#    workspaces { 
-#      name = "edion-reconstruct-dev-02-shared-services"
-#    } 
-#  } 
-#}
+terraform { 
+  cloud { 
+    
+    organization = "edion-reconstruct" 
+
+    workspaces { 
+      name = "edion-reconstruct-dev-02-shared-services"
+    } 
+  } 
+}

@@ -11,10 +11,3 @@ variable "secure_buckets" {
     versioning_enabled = bool
   }))
 }
-
-variable "artifact_buckets" {
-  description = "Map of simple artifact S3 buckets for CodePipeline"
-  type = map(object({
-    bucket_name = string
-  }))
-}

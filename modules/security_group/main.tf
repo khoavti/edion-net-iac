@@ -1,4 +1,4 @@
-resource "aws_security_group" "edion_net_app_ecs_dev_sg" {
+resource "aws_security_group" "this" {
   name        = var.sg_name
   description = "Security group for ECS service"
   vpc_id      = var.vpc_id  

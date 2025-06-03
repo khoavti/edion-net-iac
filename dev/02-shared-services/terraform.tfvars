@@ -21,15 +21,6 @@ secure_buckets = {
   }
 }
 
-artifact_buckets = {
-  codepipeline_bucket_manage = {
-    bucket_name = "s3-artifact-manage"
-  },
-  codepipeline_bucket_registration = {
-    bucket_name = "s3-artifact-registration"
-  }
-}
-
 dynamodb_config = {
   table_name   = "edion-net-app-sessions-dev-table"
   hash_key     = "sessionId"
@@ -39,22 +30,22 @@ dynamodb_config = {
 log_groups = [
   {
     name              = "/edion-net-dev/codepipeline/app-codepipeline"
-    retention_in_days = 30
+    retention_in_days = 365
     class             = "STANDARD"
   },
   {
     name              = "/edion-net-dev/codepipeline/app-mgt-codepipeline"
-    retention_in_days = 30
+    retention_in_days = 365
     class             = "STANDARD"
   },
   {
     name              = "/edion-net-dev/app/container-app-logs"
-    retention_in_days = 30
+    retention_in_days = 365
     class             = "STANDARD"
   },
   {
     name              = "/edion-net-dev/app-mgt/container-app-logs"
-    retention_in_days = 30
+    retention_in_days = 365
     class             = "STANDARD"
   }
 ]
