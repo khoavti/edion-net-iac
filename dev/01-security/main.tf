@@ -34,7 +34,7 @@ resource "aws_lb_listener_rule" "manage_domain_rule" {
 
   condition {
     host_header {
-      values = ["manage.domain"]
+      values = ["reception-manage-dev.edionsys.internal"]
     }
   }
 }
@@ -61,7 +61,7 @@ resource "aws_lb_listener_rule" "manage_domain_rule_support" {
 
   condition {
     host_header {
-      values = ["registration.domain"]
+      values = ["reception-apply-dev.enjoy.jp"]
     }
   }
 }

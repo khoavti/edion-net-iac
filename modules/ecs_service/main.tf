@@ -7,6 +7,16 @@ resource "aws_ecs_service" "services" {
   task_definition = each.value.task_definition
   desired_count   = each.value.desired_count
 
+  lifecycle {
+    ignore_changes = [
+      platform_version,
+      task_definition,
+      capacity_provider_strategy,
+      load_balancer,
+      desired_count,
+    ]
+  }
+
   capacity_provider_strategy {
     capacity_provider = each.value.capacity_provider
     weight            = each.value.capacity_provider_weight
